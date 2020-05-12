@@ -25,7 +25,9 @@ export default class Moods extends Component {
     naps: 0,
     studies: 0
   }
+  //selectors
 
+  //reducer
   handleSelection = action => {
     switch(action.type) {
       case 'DRINK_COFFEE':
