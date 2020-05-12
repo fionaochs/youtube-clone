@@ -1,12 +1,12 @@
-import { getTired } from './tiredSelectors';
+import { getNaps } from './napsSelectors';
 
-describe('tired selectors', () => {
+describe('naps selectors', () => {
   it('gets number of naps from state', () => {
     const state = {
       naps: 2
     };
 
-    const naps = getTired(state);
+    const naps = getNaps(state);
 
     expect(naps).toEqual(
       { naps: 2 }

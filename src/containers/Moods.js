@@ -1,14 +1,19 @@
-import React, { Component } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 
 import Controls from '../components/controls/Controls';
 import Face from '../components/face/Face';
-import { addHyper } from '../../actions/hyperActions';
-import { addHungry } from '../actions/hungryActions';
-import { addTired } from '../actions/tiredActions';
-import { addEducated } from '../actions/educatedActions';
-import { getEducated } from '../selectors/educatedSelectors';
+
+import { addCoffees } from '../../actions/coffeesActions';
+import { addSnacks } from '../actions/snacksActions';
+import { addNaps } from '../actions/napsActions';
+import { addStudies } from '../actions/studiesActions';
+
+import { getEducated } from '../selectors/studiesSelectors';
+import { getHyper } from '../selectors/coffeesSelectors';
+import { getTired } from '../selectors/napsSelectors';
+import { getHungry } from '../selectors/snacksSelectors';
 
 export const isTired = state => state.coffees < 1 && state.naps < 1;
 export const isHyper = state => state.coffees > 3;
@@ -37,50 +42,51 @@ const Moods = () => {
   // }
 
   //selectors
-  const coffees = useSelector(getHyper(state));
-  const snacks = useSelector(getHungry(state));
+  const coffees = useSelector(getHyper);
+  const snacks = useSelector(getHungry);
   const naps = useSelector(state => getTired(state, naps));
-  const studies = useSelector(getEducated(state));
+  const studies = useSelector(getEducated);
 
 
   //reducer
-  handleSelection = action => {
+  const handleSelection = action => {
     switch(action.type) {
       case 'DRINK_COFFEE':
-        dispatch(addHyper(coffees));
+        dispatch(addCoffees(coffees));
         // this.setState(state => ({ coffees: state.coffees + 1 }));
         break;
       case 'EAT_SNACK':
-        dispatch(addHungry(snacks));
+        dispatch(addSnacks(snacks));
         // this.setState(state => ({ snacks: state.snacks + 1 }));
         break;
       case 'TAKE_NAP':
-        dispatch(addTired(coffees, naps));
+        dispatch(addNaps(naps));
         // this.setState(state => ({ naps: state.naps + 1 }));
         break;
       case 'STUDY':
-        dispatch(addEducated(studies));
+        dispatch(addStudies(studies));
         // this.setState(state => ({ studies: state.studies + 1 }));
         break;
       default:
         console.log(`unhandled type: ${action.type}`);
     }
-  }
+  };
 
-  render() {
-    // const { coffees, snacks, naps, studies } = this.state;
-    // const face = getFace(this.state);
 
-    return (
-      <>
-        <Controls>
-          <button onClick={() => handleSelection({ type: 'DRINK_COFFEE' })}>coffee - {coffees}</button>
-          <button onClick={() => handleSelection({ type: 'EAT_SNACK' })}>snacks - {snacks}</button>
-          <button onClick={() => handleSelection({ type: 'TAKE_NAP' })}>naps - {naps}</button>
-          <button onClick={() => handleSelection({ type: 'STUDY' })}>studies - {studies}</button>
-        </Controls>
-        <Face emoji={face} />
-      </>
-    );
-  }
-}
+  // render() {
+  // const { coffees, snacks, naps, studies } = this.state;
+  const face = getFace();
+
+  return (
+    <>
+      <Controls>
+        <button onClick={() => handleSelection({ type: 'DRINK_COFFEE' })}>coffee - {coffees}</button>
+        <button onClick={() => handleSelection({ type: 'EAT_SNACK' })}>snacks - {snacks}</button>
+        <button onClick={() => handleSelection({ type: 'TAKE_NAP' })}>naps - {naps}</button>
+        <button onClick={() => handleSelection({ type: 'STUDY' })}>studies - {studies}</button>
+      </Controls>
+      <Face emoji={face} />
+    </>
+  );
+};
+export default Moods;

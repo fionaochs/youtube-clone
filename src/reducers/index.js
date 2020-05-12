@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import educated from './educatedReducer';
-import hungry from './hungryReducer';
-import hyper from './hyperReducer';
-import tired from './tiredReducer';
+import studies from './studiesReducer';
+import snacks from './snacksReducer';
+import coffees from './coffeesReducer';
+import naps from './napsReducer';
 
 export default combineReducers({
-  educated: educated,
-  hungry: hungry,
-  hyper: hyper,
-  tired: tired
+  studies: studies,
+  snacks: snacks,
+  coffees: coffees,
+  naps: naps
 });

@@ -1,4 +1,4 @@
-import { addHyper } from '../actions/hyperActions';
+import { addHyper } from '../actions/coffeesActions';
 import reducer from './hyperReducer';
 
 describe('hyper reducer', () => {
